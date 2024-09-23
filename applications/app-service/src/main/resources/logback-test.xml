@@ -1,0 +1,31 @@
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/var/log/access.log</file>
+        <append>false</append>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                <defaultMask>**********</defaultMask>
+                <path>dni</path>
+                <path>password</path>
+                <path>phoneNumber</path>
+            </jsonGeneratorDecorator>
+        </encoder>
+    </appender>
+    <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                <defaultMask>**********</defaultMask>
+                <path>dni</path>
+                <path>password</path>
+                <path>phoneNumber</path>
+            </jsonGeneratorDecorator>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="jsonConsoleAppender" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
